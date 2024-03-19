@@ -18,6 +18,7 @@ export function createPhysicsEngine(element) {
         element: element,
         engine: engine
     });
+
     ///////////////////////////////////////////////////////////////////////////////////////////////
     // create two boxes and a ground
     let boxA = Bodies.rectangle(100, 100, 30, 30);
@@ -48,10 +49,7 @@ export function createPhysicsEngine(element) {
     // Render the scene
     Matter.Render.run(render);
 
-    // Change the canvas size
-    const canvas = render.canvas;
-    canvas.width = 512; // Desired width
-    canvas.height = 200; // Desired height
+    
 
     // Return the engine or any other necessary objects
     return engine;

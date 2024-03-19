@@ -9,17 +9,25 @@ var Engine = Matter.Engine,
 
 export function createPhysicsEngine(element) {
     // Initialize Matter.js engine
-    const engine = Matter.Engine.create();
+    const engine = Engine.create();
+
     // Add a renderer
-    const render = Matter.Render.create({
+    const render = Render.create({
         element: element,
-        engine: engine
+        engine: engine,
+        options: {
+            width: 600,
+            height: 300
+        }
     });
+
+    console.log(render.options);
+    
     ///////////////////////////////////////////////////////////////////////////////////////////////
     // create two boxes and a ground
     let boxA = Bodies.rectangle(400, 200, 80, 80);
     let boxB = Bodies.rectangle(450, 50, 80, 80);
-    let ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
+    let ground = Bodies.rectangle(300, 300, 810, 60, { isStatic: true });
 
     // Add bodies, constraints, etc.
     let rectangle2 = Bodies.rectangle(400, 250, 100, 50);
@@ -39,9 +47,11 @@ export function createPhysicsEngine(element) {
     // ...
 
     // Run the engine
-    Matter.Runner.run(engine);
+    Runner.run(engine);
     // Render the scene
-    Matter.Render.run(render);
+    Render.run(render);
+
+    
 
     // Return the engine or any other necessary objects
     return engine;
