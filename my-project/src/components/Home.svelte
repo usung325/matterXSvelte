@@ -8,9 +8,11 @@
         createPhysicsEngine(canvasContainer);
         
     });
+    
 </script>
 
 <div class="bg-slate-200">
     <p>what's up</p>
-    <canvas id="canvas-container" bind:this={canvasContainer}/>
+    <div id="canvas-container" bind:this={canvasContainer}>
+    </div>
 </div>

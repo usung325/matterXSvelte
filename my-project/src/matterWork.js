@@ -1,36 +1,57 @@
 
 import { Matter } from "../node_modules/matter-js/build/matter";
 
-// module aliases
-
 var Engine = Matter.Engine,
     Render = Matter.Render,
     Runner = Matter.Runner,
     Bodies = Matter.Bodies,
     Composite = Matter.Composite;
 
-// create an engine
-var engine = Engine.create();
+export function createPhysicsEngine(element) {
+    // canvas.width = 300;
+    // canvas.height = 300;
+    // Initialize Matter.js engine
+    const engine = Matter.Engine.create();
+    // Add a renderer
+    const render = Matter.Render.create({
+        element: element,
+        engine: engine
+    });
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    // create two boxes and a ground
+    let boxA = Bodies.rectangle(100, 100, 30, 30);
+    let boxB = Bodies.rectangle(50, 50, 20, 20);
+    let ground = Bodies.rectangle(200, 200, 810, 60, { isStatic: true });
+    let ground2 = Bodies.rectangle(0, 10, 100, 400, { isStatic: true });
+    let ground3 = Bodies.rectangle(512, 10, 100, 700, { isStatic: true });
+    let ground4 = Bodies.rectangle(250, 0, 700, 50, { isStatic: true });
 
-// create a renderer
-var render = Render.create({
-    element: document.body,
-    engine: engine
-});
+    // Add bodies, constraints, etc.
+    let rectangle2 = Bodies.rectangle(300, 50, 10, 10);
+    //////////////////////////////////////////////////////////////////////////////////////////
 
-// create two boxes and a ground
-var boxA = Bodies.rectangle(400, 200, 80, 80);
-var boxB = Bodies.rectangle(450, 50, 80, 80);
-var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
+    let mouse = Matter.Mouse.create(render.canvas);
+    let mouseConstraint = Matter.MouseConstraint.create(engine, {
+        mouse: mouse,
+        constraint: {
+            render: { visible: false }
+        }
+    });
+    render.mouse = mouse;
 
-// add all of the bodies to the world
-Composite.add(engine.world, [boxA, boxB, ground]);
+    Matter.World.add(engine.world, [rectangle2, boxB, boxA, ground, ground2, ground3, ground4, mouseConstraint]);
+    // ...
 
-// run the renderer
-Render.run(render);
+    // Run the engine
+    Matter.Runner.run(engine);
+    // Render the scene
+    Matter.Render.run(render);
 
-// create runner
-var runner = Runner.create();
+    // Change the canvas size
+    const canvas = render.canvas;
+    canvas.width = 512; // Desired width
+    canvas.height = 200; // Desired height
 
-// run the engine
-Runner.run(runner, engine);
+    // Return the engine or any other necessary objects
+    return engine;
+};

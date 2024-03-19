@@ -7,12 +7,12 @@ var Engine = Matter.Engine,
     Bodies = Matter.Bodies,
     Composite = Matter.Composite;
 
-export function createPhysicsEngine() {
+export function createPhysicsEngine(element) {
     // Initialize Matter.js engine
     const engine = Matter.Engine.create();
     // Add a renderer
     const render = Matter.Render.create({
-        element: document.body,
+        element: element,
         engine: engine
     });
     ///////////////////////////////////////////////////////////////////////////////////////////////
